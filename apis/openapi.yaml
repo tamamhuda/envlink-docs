@@ -1766,10 +1766,25 @@ paths:
       tags:
         - OAuth
 info:
-  title: envlink
+  title: Envlink
   description: >-
-    A fast and reliable URL shortening service built with NestJS, enabling easy
-    link generation, management, and usage tracking.
+    Envlink provides a scalable and secure platform for creating, managing, and analyzing shortened URLs.
+    The API supports the full lifecycle of link operations, including creation, customization, resolution,
+    and analytics. It also includes comprehensive account, subscription, billing, and payment-management
+    capabilities to support SaaS workflows.
+
+
+    Key capabilities include:
+      - URL shortening with custom codes, expiration, protection options, and public access endpoints.
+      - Detailed analytics covering clicks, unique visitors, geographic insights, and time-based metrics.
+      - Full account and user management including profiles, sessions, authentication, OAuth, and billing addresses.
+      - Subscription management with plan retrieval, upgrades, downgrades, billing history, and usage limits.
+      - Secure handling of payment methods, transactions, and webhook event delivery.
+      - Public endpoints for URLs, subscription plans, and payment methods.
+
+    This API is designed for reliable integration into modern applications, offering consistent endpoints,
+    predictable behavior, and support for both authenticated and public workflows.
+
   version: v1.0
   contact: {}
 tags: []

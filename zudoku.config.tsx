@@ -4,6 +4,7 @@ import { Button } from "zudoku/ui/Button";
 
 const config: ZudokuConfig = {
   site: {
+    title: "Envlink Docs",
     logo: {
       src: { light: "/logo-light.png", dark: "/logo-dark.png" },
       alt: "Envlink",
@@ -74,6 +75,9 @@ const config: ZudokuConfig = {
   redirects: [{ from: "/", to: "/api-introduction" }],
   apis: [
     {
+      options: {
+        expandApiInformation: true,
+      },
       type: "file",
       input: "./apis/openapi.yaml",
       path: "/api",
