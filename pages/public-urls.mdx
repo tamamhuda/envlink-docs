@@ -1,0 +1,32 @@
+---
+title: Public URLs API
+description: "Overview of the Public URLs API, which allows for the creation and management of short URLs without authentication."
+---
+
+## Public URLs API Overview
+
+The Public URLs API provides a simple and efficient way to shorten URLs without requiring user authentication. This is ideal for applications where you want to offer a quick and easy way for any user to create a short link. The API also allows you to retrieve information about a short URL and to unlock password-protected links, providing a complete solution for public URL shortening.
+
+### Key Features
+
+- **Anonymous Shortening**: Create short URLs without needing to be logged in.
+- **URL Retrieval**: Get information about a short URL, including its original destination.
+- **Password Protection**: Unlock short URLs that are protected with an access code.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to use and provides clear, consistent responses to help you build a seamless URL shortening experience for your users.
+
+---
+
+### Endpoints
+
+#### `POST /api/v1/public/urls/shorten`
+- **Description**: Creates a new short URL for public access.
+- **Usage**: This endpoint allows any user to create a short URL by providing the original URL. It is a quick and easy way to generate short links without the need for an account.
+
+#### `GET /api/v1/public/urls/{code}`
+- **Description**: Retrieves information about a short URL.
+- **Usage**: Use this endpoint to get the details of a short URL, including its original destination. This can be useful for previewing a link before redirecting to it.
+
+#### `POST /api/v1/public/urls/unlock/{code}`
+- **Description**: Unlocks a password-protected short URL.
+- **Usage**: If a short URL is protected with an access code, this endpoint allows you to unlock it by providing the correct code. This is a great way to restrict access to sensitive links while still making them easy to share.

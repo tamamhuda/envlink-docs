@@ -1,0 +1,40 @@
+---
+title: Urls API
+description: "Overview of the Urls API, which handles the creation, retrieval, updating, and deletion of short URLs."
+---
+
+## Urls API Overview
+
+The Urls API is the core of the URL shortening service, providing a comprehensive set of endpoints for managing short URLs. It allows authenticated users to create, retrieve, update, and delete their own short links, giving them full control over their shortened URLs. This API is designed to be flexible and secure, with options for custom codes, password protection, and expiration dates.
+
+### Key Features
+
+- **URL Management**: Create, retrieve, update, and delete short URLs.
+- **Customization**: Set custom short codes, password protection, and expiration dates.
+- **Ownership**: All URLs are associated with a user account, providing a secure and organized way to manage your links.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, consistent responses to help you build a powerful and flexible URL shortening service.
+
+---
+
+### Endpoints
+
+#### `POST /api/v1/urls`
+- **Description**: Creates a new short URL.
+- **Usage**: This endpoint allows an authenticated user to create a new short URL by providing the original URL. They can also specify a custom short code, an access code for password protection, and an expiration date.
+
+#### `GET /api/v1/urls`
+- **Description**: Retrieves a list of all short URLs for the current user.
+- **Usage**: Use this endpoint to get a complete list of all short URLs associated with the user's account. This is useful for displaying a user's link history and for managing their links.
+
+#### `GET /api/v1/urls/{id}`
+- **Description**: Retrieves a specific short URL by its unique ID.
+- **Usage**: This is useful for viewing the details of a single short URL, including its original destination, creation date, and click count.
+
+#### `PUT /api/v1/urls/{id}`
+- **Description**: Updates an existing short URL.
+- **Usage**: This allows users to make changes to their short URLs, such as updating the original URL, changing the access code, or setting a new expiration date.
+
+#### `DELETE /api/v1/urls/{id}`
+- **Description**: Deletes a short URL.
+- **Usage**: If a user no longer needs a short URL, they can use this endpoint to permanently delete it.

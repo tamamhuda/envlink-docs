@@ -1,0 +1,57 @@
+---
+title: Subscriptions API
+description: "Overview of the Subscriptions API, which handles the management of user subscriptions, plans, and billing cycles."
+---
+
+## Subscriptions API Overview
+
+The Subscriptions API is a comprehensive suite of endpoints for managing user subscriptions and billing cycles. It allows you to handle everything from creating and upgrading subscriptions to deactivating them and retrieving detailed information about billing cycles. This API is essential for any application that offers subscription-based services, providing a seamless and secure way to manage user plans.
+
+### Key Features
+
+- **Subscription Management**: Create, upgrade, and deactivate user subscriptions.
+- **Plan Information**: Retrieve detailed information about subscription plans, including features and pricing.
+- **Billing Cycles**: Get a complete history of billing cycles for each subscription.
+- **Active Subscriptions**: Easily retrieve the current user's active subscription.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, consistent responses to help you build a robust subscription management system.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/subscriptions/active`
+- **Description**: Retrieves the current user's active subscription.
+- **Usage**: This is a convenient way to get the details of the user's current subscription without having to search through all of their subscriptions.
+
+#### `GET /api/v1/subscriptions`
+- **Description**: Retrieves a list of all subscriptions for the current user.
+- **Usage**: Use this endpoint to get a complete history of a user's subscriptions, including active, inactive, and canceled plans.
+
+#### `GET /api/v1/subscriptions/{id}`
+- **Description**: Retrieves a specific subscription by its unique ID.
+- **Usage**: This is useful for viewing the details of a single subscription, such as its status, plan, and billing cycle.
+
+#### `POST /api/v1/subscriptions/{id}/deactivate`
+- **Description**: Deactivates a subscription plan.
+- **Usage**: If a user wishes to cancel their subscription, this endpoint allows you to do so in a secure and organized manner.
+
+#### `POST /api/v1/subscriptions/{id}/upgrade`
+- **Description**: Upgrades a subscription plan.
+- **Usage**: This allows users to upgrade their subscription to a higher tier, with options for immediate or delayed upgrades.
+
+#### `GET /api/v1/subscriptions/{id}/upgrade-options`
+- **Description**: Retrieves a list of available upgrade options for a subscription.
+- **Usage**: Before a user upgrades, you can use this endpoint to show them the available plans and the associated costs.
+
+#### `GET /api/v1/subscriptions/active/cycles`
+- **Description**: Retrieves all billing cycles for the user's active subscription.
+- **Usage**: This is useful for displaying a user's billing history and for tracking their payment status.
+
+#### `GET /api/v1/subscriptions/{id}/cycles`
+- **Description**: Retrieves all billing cycles for a specific subscription.
+- **Usage**: Use this endpoint to get a complete history of a subscription's billing cycles, including payments, retries, and failures.
+
+#### `GET /api/v1/subscriptions/{id}/cycles/{cycleId}`
+- **Description**: Retrieves a specific billing cycle by its unique ID.
+- **Usage**: This allows you to view the details of a single billing cycle, including the transaction ID and payment status.

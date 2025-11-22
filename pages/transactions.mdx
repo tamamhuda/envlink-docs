@@ -1,0 +1,28 @@
+---
+title: Transactions API
+description: "Overview of the Transactions API, which provides a way to retrieve information about user transactions and billing history."
+---
+
+## Transactions API Overview
+
+The Transactions API allows you to retrieve detailed information about user transactions, providing a complete history of all payments, refunds, and other billing-related events. This is essential for managing user accounts, tracking revenue, and providing a transparent and reliable billing system. The API allows you to retrieve a list of all transactions or to get the details of a specific transaction by its unique ID.
+
+### Key Features
+
+- **Transaction History**: Get a complete list of all user transactions.
+- **Detailed Information**: Retrieve detailed information about each transaction, including the amount, currency, and status.
+- **Filtering**: Filter transactions by date and status to easily find the information you need.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to use and provides clear, consistent responses to help you build a robust and transparent billing system.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/transactions`
+- **Description**: Retrieves a list of all transactions for the current user.
+- **Usage**: This endpoint is ideal for displaying a user's complete transaction history. You can filter the results by date and status to narrow down the list and find specific transactions.
+
+#### `GET /api/v1/transactions/{id}`
+- **Description**: Retrieves the details of a specific transaction by its unique ID.
+- **Usage**: Use this endpoint when you need to view the details of a single transaction, such as the payment method used, the product purchased, and the status of the payment.

@@ -1,0 +1,36 @@
+---
+title: Sessions API
+description: "Overview of the Sessions API, which provides tools for managing user sessions and enhancing security."
+---
+
+## Sessions API Overview
+
+The Sessions API is a critical component for managing user authentication and security. It provides a comprehensive set of endpoints to retrieve, and revoke user sessions, giving you full control over who is accessing your application and from where. This is particularly useful for identifying suspicious activity, managing concurrent sessions, and allowing users to see where their account is being used.
+
+### Key Features
+
+- **Session Management**: Retrieve a list of all active and past user sessions.
+- **Session Revocation**: Securely revoke individual or all user sessions.
+- **Detailed Information**: Get detailed information about each session, including the user agent and IP location.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, consistent responses to help you build a secure and reliable authentication system.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/session/{id}`
+- **Description**: Retrieves a specific user session by its unique ID.
+- **Usage**: This endpoint is useful for viewing the details of a single session, such as the user agent, IP location, and when it was last active.
+
+#### `GET /api/v1/session`
+- **Description**: Retrieves a list of all user sessions.
+- **Usage**: Use this endpoint to get a comprehensive list of all sessions associated with the current user. You can filter by active sessions to see who is currently logged in.
+
+#### `POST /api/v1/session/revoke/{id}`
+- **Description**: Revokes a specific user session.
+- **Usage**: If you suspect that a user's session has been compromised, you can use this endpoint to immediately revoke it, forcing the user to log in again.
+
+#### `POST /api/v1/session/revoke`
+- **Description**: Revokes all user sessions.
+- **Usage**: This is a powerful security feature that allows you to revoke all active sessions for the current user. This is particularly useful in the event of a security breach or if a user wants to log out of all devices at once.

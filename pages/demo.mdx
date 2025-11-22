@@ -1,0 +1,66 @@
+---
+title: Demo
+description: "Introduction to the Envlink SaaS URL Shortener API and its documentation."
+---
+
+## Overview
+
+Frontend-only demo guide for EnvLink at https://envlink.one. This document focuses solely on UI flows, user interactions, and how to simulate subscription and authentication steps without backend involvement.
+
+## Objectives
+
+- Show end-to-end flow of environment linking.
+- Focus on UI-driven interactions only.
+
+## Demo Scope
+
+- Authentication and onboarding using Google or manual registration.
+- Subscription flow demonstration with two paths: direct payment or adding payment method and billing details first.
+- Safe testing using Xendit test cards.
+- Avoid using personal information during the demo.
+
+## Demo URL
+
+Access the demo at https://envlink.one.
+
+## Authentication Guide
+
+### Recommended: Google Sign-In
+
+Fast and reliable for demos.
+
+### Manual Registration
+
+Use a non-primary email to avoid interfering with your production inbox. If you handle notifications during the demo, use your own personal email.
+
+## Subscription Flow
+
+### Option 1: Subscribe directly
+
+User proceeds to subscription and completes payment in one flow.
+
+### Option 2: Add payment method first
+
+1. Add a payment method.
+2. Add billing address.
+3. Proceed to subscription.
+
+### Test Cards (Xendit)
+
+Use only test cards during demo. Avoid entering real personal or financial data.
+
+| Card Number      | Type       | Region              | 3DS Flow                 | Result                                   |
+| ---------------- | ---------- | ------------------- | ------------------------ | ---------------------------------------- |
+| 4000000000001000 | VISA       | Indonesia, Malaysia | Frictionless             | Authentication successful                |
+| 5200000000002151 | MASTERCARD | Indonesia, Malaysia | Challenge (OTP required) | Authentication successful if OTP correct |
+
+## Architecture Summary
+
+High-level architecture diagram description.
+
+- **Frontend**: Nuxt
+- **Backend**: NestJS
+- **SDK**: OpenAPI-generated client
+- **Workers/queues**: TBD
+- **Database**: PostgreSQL
+- **Cloud**: TBD

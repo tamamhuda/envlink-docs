@@ -1,0 +1,32 @@
+---
+title: OAuth API
+description: "Overview of the OAuth API, which handles user authentication via third-party providers like Google."
+---
+
+## OAuth API Overview
+
+The OAuth API provides a secure and seamless way for users to authenticate with their existing accounts from third-party providers, such as Google. This allows for a streamlined login process, as users do not need to create a separate password for your application. The API handles the entire OAuth 2.0 flow, from redirecting the user to the provider's login page to exchanging the authorization code for access tokens.
+
+### Key Features
+
+- **Third-Party Authentication**: Authenticate users with their Google accounts.
+- **Secure Token Exchange**: Securely exchange authorization codes for access and refresh tokens.
+- **Simplified Login**: Provide a frictionless login experience for your users.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and follows the OAuth 2.0 standard for secure authentication.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/oauth/google/login`
+- **Description**: Redirects the user to the Google OAuth login page.
+- **Usage**: This endpoint initiates the Google authentication flow. When a user clicks on the "Login with Google" button in your application, you should redirect them to this endpoint, which will then take them to the Google login page.
+
+#### `GET /api/v1/oauth/google/callback`
+- **Description**: Handles the callback from the Google OAuth login page.
+- **Usage**: After the user successfully authenticates with Google, they will be redirected back to this endpoint. The API will then handle the authorization code and exchange it for an access token and a refresh token.
+
+#### `POST /api/v1/oauth/exchange-code`
+- **Description**: Exchanges an OAuth authorization code for a set of authentication tokens.
+- **Usage**: In some cases, you may want to handle the authorization code on the client side. This endpoint allows you to securely exchange the code for an access token and a refresh token, which can then be used to authenticate the user.

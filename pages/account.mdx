@@ -1,0 +1,33 @@
+---
+title: Account API
+description: "Overview of the Account API, which handles user authentication, profile management, and security."
+---
+
+## Account API Overview
+
+The Account API is responsible for managing user-related operations, including authentication, profile settings, and security. It provides a comprehensive set of endpoints to handle everything from logging in and out to changing passwords and verifying email addresses. This API is essential for ensuring that user accounts are secure and that users can manage their own information effectively.
+
+### Key Features
+
+- **User Authentication**: Securely log in and out of the application.
+- **Password Management**: Change your password at any time.
+- **Email Verification**: Resend a verification email to ensure your account is properly activated.
+- **Profile Management**: Update your user profile information, including your username, full name, and contact details.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear responses to help you build a seamless user experience.
+
+---
+
+### Endpoints
+
+#### `POST /api/v1/account/logout`
+- **Description**: Logs out the currently authenticated user.
+- **Usage**: This endpoint is used to terminate a user's session and invalidate their access token. It is a critical part of the authentication flow and should be called whenever a user wishes to log out of the application.
+
+#### `POST /api/v1/account/verify/resend`
+- **Description**: Resends a verification email to the user.
+- **Usage**: If a user has not received their initial verification email or if the link has expired, this endpoint can be used to send a new one. This ensures that users can complete the registration process and access all features of the application.
+
+#### `POST /api/v1/account/change-password`
+- **Description**: Allows the user to change their password.
+- **Usage**: For security reasons, it is important to allow users to change their passwords regularly. This endpoint provides a secure way to update a user's password, requiring the old password to be confirmed before a new one can be set.

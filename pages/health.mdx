@@ -1,0 +1,24 @@
+---
+title: Health API
+description: "Overview of the Health API, which provides a simple way to monitor the status of the application and its connected services."
+---
+
+## Health API Overview
+
+The Health API is a straightforward endpoint that allows you to monitor the health and status of the application. It provides a simple way to check if the service is running and to get a quick overview of the status of its dependencies, such as the database and other external services. This is particularly useful for setting up automated monitoring and alerting systems to ensure the reliability of your application.
+
+### Key Features
+
+- **Service Status**: Quickly check if the application is running and accessible.
+- **Dependency-Checking**: Get a high-level overview of the status of connected services, such as the database.
+- **Simple Integration**: The endpoint is easy to integrate with any monitoring tool or script.
+
+Below is a summary of the available endpoint and its functionality. It is designed to be a lightweight and efficient way to monitor the health of your application.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/health`
+- **Description**: Checks the health status of the application and its dependencies.
+- **Usage**: This endpoint is designed to be called by a monitoring service to verify that the application is running and that its critical dependencies are available. It returns a simple JSON response with the status of each component, making it easy to parse and act upon.

@@ -1,0 +1,32 @@
+---
+title: User API
+description: "Overview of the User API, which handles the retrieval and updating of user profile information."
+---
+
+## User API Overview
+
+The User API provides a straightforward way to manage user profile information. It allows authenticated users to retrieve their own profile details and to update them as needed. This includes changing their username, full name, and contact information, as well as uploading a new avatar. The API is designed to be secure and easy to use, ensuring that users can keep their profile information up-to-date.
+
+### Key Features
+
+- **Profile Retrieval**: Get the complete profile information for the currently authenticated user.
+- **Profile Updates**: Update user information, including username, full name, and contact details.
+- **Avatar Uploads**: Upload a new avatar to personalize the user's profile.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, consistent responses to help you build a seamless and user-friendly profile management system.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/user/me`
+- **Description**: Retrieves the profile information for the currently authenticated user.
+- **Usage**: This endpoint is ideal for populating a user's profile page with their current information, such as their username, full name, and email address.
+
+#### `PATCH /api/v1/user/{id}`
+- **Description**: Updates the user's profile information.
+- **Usage**: Use this endpoint to allow users to make changes to their profile, such as updating their username, full name, or contact information.
+
+#### `POST /api/v1/user/image/upload`
+- **Description**: Uploads a new avatar for the user.
+- **Usage**: This endpoint allows users to upload a new profile picture, which can be displayed throughout the application to personalize their experience.

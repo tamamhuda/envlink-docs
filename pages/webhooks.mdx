@@ -1,0 +1,28 @@
+---
+title: Webhooks API
+description: "Overview of the Webhooks API, which handles incoming webhook notifications from third-party services like Xendit."
+---
+
+## Webhooks API Overview
+
+The Webhooks API is designed to receive and process incoming webhook notifications from third-party services, such as Xendit. This allows your application to respond to real-time events, such as payment method updates and recurring plan changes, without having to continuously poll for new information. The API provides a secure and reliable way to handle these notifications, ensuring that your application is always up-to-date with the latest information.
+
+### Key Features
+
+- **Real-Time Notifications**: Receive real-time updates from third-party services.
+- **Secure Handling**: Securely process incoming webhook notifications to ensure data integrity.
+- **Automated Workflows**: Automate workflows based on real-time events, such as updating a user's subscription status.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides a clear and consistent way to handle incoming webhook notifications.
+
+---
+
+### Endpoints
+
+#### `POST /api/v1/webhooks/xendit/payment_methods`
+- **Description**: Handles incoming webhook notifications for payment method updates from Xendit.
+- **Usage**: This endpoint is designed to receive notifications from Xendit whenever a user's payment method is updated. This allows you to keep your user's payment information up-to-date without requiring them to manually enter it.
+
+#### `POST /api/v1/webhooks/xendit/recurring`
+- **Description**: Handles incoming webhook notifications for recurring plan updates from Xendit.
+- **Usage**: Use this endpoint to receive notifications from Xendit about changes to a user's recurring plan, such as a successful payment, a failed payment, or a change in subscription status. This allows you to automate your billing and subscription management workflows.

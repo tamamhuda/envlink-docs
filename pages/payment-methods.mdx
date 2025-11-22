@@ -1,0 +1,45 @@
+---
+title: Payment Methods API
+description: "Overview of the Payment Methods API, which handles the creation, retrieval, and management of user payment methods."
+---
+
+## Payment Methods API Overview
+
+The Payment Methods API provides a comprehensive set of tools for managing user payment information. It allows you to securely create, retrieve, and update payment methods, making it easy to handle subscriptions, one-time purchases, and other billing-related tasks. The API is designed to be flexible and supports a variety of payment types, including credit cards, e-wallets, and direct debit.
+
+### Key Features
+
+- **Multiple Payment Types**: Support for a wide range of payment methods, including credit cards, e-wallets, and direct debit.
+- **Secure Management**: Securely create, retrieve, and update payment methods.
+- **Default Payment Method**: Set a default payment method for recurring payments.
+- **Sorting and Validation**: Organize and validate payment methods to ensure they are ready for use.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, consistent responses to help you build a reliable and secure payment system.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/payment-methods/requests-actions`
+- **Description**: Retrieves a list of requested payment method actions.
+- **Usage**: This endpoint is used to get a list of actions that need to be taken to complete a payment method setup, such as redirecting the user to a third-party authentication page.
+
+#### `GET /api/v1/payment-methods/{id}`
+- **Description**: Retrieves a specific payment method by its unique ID.
+- **Usage**: This is useful for viewing the details of a single payment method or for updating it.
+
+#### `GET /api/v1/payment-methods`
+- **Description**: Retrieves all payment methods associated with the current user.
+- **Usage**: This endpoint is useful for displaying a list of available payment methods in the user's account settings.
+
+#### `POST /api/v1/payment-methods`
+- **Description**: Creates a new payment method.
+- **Usage**: This is typically used when a user is adding a new payment method to their account for the first time or wants to add an additional one.
+
+#### `PATCH /api/v1/payment-methods/sort`
+- **Description**: Sorts the user's payment methods.
+- **Usage**: This allows you to reorder the list of payment methods, which can be useful for prioritizing a specific payment method.
+
+#### `POST /api/v1/payment-methods/validate`
+- **Description**: Validates a payment method.
+- **Usage**: Before charging a payment method, it is important to ensure that it is valid and has sufficient funds. This endpoint allows you to do so without actually making a charge.

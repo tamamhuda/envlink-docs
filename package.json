@@ -1,0 +1,31 @@
+{
+  "name": "envlink-docs",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "zudoku dev",
+    "build": "zudoku build",
+    "preview": "zudoku preview",
+    "lint": "eslint",
+    "split-openapi": "ts-node scripts/split-openapi.ts",
+    "split-openapi:watch": "ts-node scripts/split-openapi.ts ./docs/openapi.yaml ./docs/split"
+  },
+  "dependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0",
+    "zudoku": "0.64.2"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8",
+    "@typescript-eslint/parser": "^8",
+    "eslint": "^8",
+    "js-yaml": "^4.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  }
+}

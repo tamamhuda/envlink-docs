@@ -1,0 +1,28 @@
+---
+title: Public Subscriptions Plans API
+description: "Overview of the Public Subscriptions Plans API, which provides a way to retrieve information about available subscription plans."
+---
+
+## Public Subscriptions Plans API Overview
+
+The Public Subscriptions Plans API allows you to retrieve information about the available subscription plans without requiring authentication. This is particularly useful for displaying plan details on a public-facing pricing page, where potential customers can compare features and pricing. The API provides a straightforward way to get a list of all plans or to retrieve the details of a specific plan by its name.
+
+### Key Features
+
+- **Plan Information**: Retrieve detailed information about each subscription plan, including its name, price, and features.
+- **Public Access**: Access plan information without needing to be authenticated.
+- **Easy Integration**: Simple endpoints that are easy to integrate with any website or application.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to use and provides clear, consistent responses to help you build a transparent and informative pricing page.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/public/subscriptions/plans`
+- **Description**: Retrieves a list of all available subscription plans.
+- **Usage**: This endpoint is ideal for populating a pricing page with the latest plan information. It returns a list of all plans, including their names, prices, and features.
+
+#### `GET /api/v1/public/subscriptions/plans/{name}`
+- **Description**: Retrieves the details of a specific subscription plan by its name.
+- **Usage**: Use this endpoint when you need to display the details of a single plan, such as on a dedicated plan page or in a comparison table.

@@ -1,0 +1,36 @@
+---
+title: Billing Address API
+description: "Overview of the Billing Address API, which handles the creation, retrieval, and updating of user billing addresses."
+---
+
+## Billing Address API Overview
+
+The Billing Address API is designed to manage user billing information in a secure and organized manner. It allows users to create, retrieve, and update their billing addresses, which is essential for subscription management and invoicing. This API ensures that all billing-related information is accurate and up-to-date, providing a seamless experience for both users and administrators.
+
+### Key Features
+
+- **Address Management**: Create, retrieve, and update billing addresses with ease.
+- **Default Address**: Set a default billing address for recurring payments and invoicing.
+- **Secure Storage**: All billing information is stored securely to protect user data.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, consistent responses to help you build a reliable billing system.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/billing-address`
+- **Description**: Retrieves all billing addresses associated with the current user.
+- **Usage**: This endpoint is useful for displaying a list of available addresses in the user's account settings or during the checkout process.
+
+#### `POST /api/v1/billing-address`
+- **Description**: Allows the user to create a new billing address.
+- **Usage**: This is typically used when a user is adding a new address to their account for the first time or wants to add an additional one.
+
+#### `GET /api/v1/billing-address/{id}`
+- **Description**: Retrieves a specific billing address by its unique ID.
+- **Usage**: This is useful for viewing the details of a single address or for editing it.
+
+#### `PATCH /api/v1/billing-address/{id}`
+- **Description**: Updates an existing billing address.
+- **Usage**: This allows users to make changes to their address information, such as their street, city, or zip code, without having to create a new entry.

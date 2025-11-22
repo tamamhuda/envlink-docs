@@ -1,0 +1,49 @@
+---
+title: Analytics API
+description: "Overview of the Analytics API, which provides detailed statistics and tracking for shortened URLs."
+---
+
+## Analytics API Overview
+
+The Analytics API offers a powerful set of tools for monitoring the performance of your shortened URLs. It allows you to gather detailed insights into how your links are being used, including the number of clicks, unique visitors, and geographic data. This information is invaluable for understanding your audience and optimizing your campaigns.
+
+### Key Features
+
+- **Comprehensive Tracking**: Track the total number of visits and unique visitors for each of your shortened URLs.
+- **Geographic Insights**: Identify the countries where your links are being accessed the most.
+- **URL Performance**: Get a detailed breakdown of your top-performing links, including device, OS, and browser information.
+- **Timeline Analysis**: Monitor trends over time with timeline-based statistics.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, actionable data to help you make informed decisions.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/analytics/urls/overview`
+- **Description**: Provides a high-level overview of URL analytics, including total visits, unique visitors, and top-performing countries and URLs.
+- **Usage**: This endpoint is perfect for getting a quick snapshot of your link performance without having to process a large amount of data.
+
+#### `GET /api/v1/analytics/urls/stats`
+- **Description**: Retrieves detailed statistics for all of your shortened URLs, with support for pagination.
+- **Usage**: Use this endpoint to get a comprehensive list of all your URLs and their performance metrics.
+
+#### `GET /api/v1/analytics/urls/timeline`
+- **Description**: Returns a timeline of URL visits, allowing you to see how your links have performed over time.
+- **Usage**: This is useful for identifying trends and understanding how your audience engages with your links on a daily, weekly, or monthly basis.
+
+#### `GET /api/v1/analytics/urls/logs`
+- **Description**: Provides a paginated list of all analytics logs, giving you a granular view of every interaction with your URLs.
+- **Usage**: This endpoint is ideal for in-depth analysis and can be used to build custom reports and dashboards.
+
+#### `GET /api/v1/analytics/urls/{urlId}/stats`
+- **Description**: Retrieves detailed statistics for a specific URL, identified by its unique ID.
+- **Usage**: Use this endpoint when you need to focus on the performance of a single link.
+
+#### `GET /api/v1/analytics/urls/{urlId}/timeline`
+- **Description**: Returns a timeline of visits for a specific URL, allowing you to track its performance over time.
+- **Usage**: This is useful for analyzing the engagement of a particular link and understanding its lifecycle.
+
+#### `GET /api/v1/analytics/urls/{urlId}/logs`
+- **Description**: Provides a paginated list of all analytics logs for a specific URL.
+- **Usage**: This endpoint allows you to drill down into the details of a single link and see every interaction it has received.

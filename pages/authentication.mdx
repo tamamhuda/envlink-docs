@@ -1,0 +1,37 @@
+---
+title: Authentication API
+description: "Overview of the Authentication API, which handles user registration, login, and token management."
+---
+
+## Authentication API Overview
+
+The Authentication API is responsible for managing user access to the application. It provides a secure and straightforward way to handle user registration, login, and session management. By using a token-based authentication system, the API ensures that all communication between the client and server is secure and that only authorized users can access protected resources.
+
+### Key Features
+
+- **User Registration**: Create a new user account with a secure password.
+- **User Login**: Authenticate users and issue access and refresh tokens.
+- **Token Management**: Refresh expired access tokens to maintain a seamless user experience.
+- **Email Verification**: Verify a user's email address to activate their account.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and follows best practices for security and user management.
+
+---
+
+### Endpoints
+
+#### `POST /api/v1/auth/register`
+- **Description**: Registers a new user account.
+- **Usage**: This endpoint allows a new user to create an account by providing their full name, username, email, and password. Upon successful registration, the user will receive an email to verify their account.
+
+#### `POST /api/v1/auth/login`
+- **Description**: Logs in a user and returns a set of authentication tokens.
+- **Usage**: This endpoint authenticates a user with their username and password. If the credentials are valid, it returns an access token and a refresh token, which are used to authorize subsequent requests.
+
+#### `POST /api/v1/auth/refresh`
+- **Description**: Refreshes an expired access token.
+- **Usage**: Access tokens have a limited lifespan for security reasons. When an access token expires, this endpoint can be used to obtain a new one by providing a valid refresh token.
+
+#### `GET /api/v1/auth/verify`
+- **Description**: Verifies a user's email address.
+- **Usage**: After a user registers, they will receive an email with a verification link. This endpoint is called when the user clicks on the link, and it marks the user's email as verified, allowing them to access all features of the application.

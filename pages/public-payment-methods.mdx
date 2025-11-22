@@ -1,0 +1,32 @@
+---
+title: Public Payment Methods API
+description: "Overview of the Public Payment Methods API, which handles the creation and validation of payment methods for public users."
+---
+
+## Public Payment Methods API Overview
+
+The Public Payment Methods API is designed to allow users to add and manage their payment methods without being authenticated. This is particularly useful for scenarios where a user may be completing a purchase as a guest or setting up a subscription before creating an account. The API provides a secure and straightforward way to handle payment method creation and validation, ensuring a seamless experience for all users.
+
+### Key Features
+
+- **Guest Checkout**: Allow users to add a payment method without being logged in.
+- **Secure Validation**: Securely validate payment methods before processing any charges.
+- **Token-Based Operations**: Use a secure token to manage payment methods for unauthenticated users.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, consistent responses to help you build a reliable and secure payment system for all users.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/public/payment-methods/add`
+- **Description**: Adds a new payment method for a public user.
+- **Usage**: This endpoint is used to initiate the process of adding a new payment method for a user who is not logged in. It returns a URL that the user should be redirected to in order to complete the process.
+
+#### `POST /api/v1/public/payment-methods/validate`
+- **Description**: Validates a payment method for a public user.
+- **Usage**: Before processing a payment, it is important to ensure that the payment method is valid. This endpoint allows you to do so without requiring the user to be authenticated.
+
+#### `POST /api/v1/public/payment-methods`
+- **Description**: Creates a new payment method for a public user.
+- **Usage**: This endpoint is used to create a new payment method after the user has been redirected back from the payment provider's page. It requires a valid token to associate the payment method with the correct user.
