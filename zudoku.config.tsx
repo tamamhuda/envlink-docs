@@ -11,6 +11,16 @@ const config: ZudokuConfig = {
       width: "130px",
     },
   },
+  search: {
+    type: "pagefind",
+    maxSubResults: 5,
+    ranking: {
+      termFrequency: 0.8,
+      pageLength: 0.6,
+      termSimilarity: 1.2,
+      termSaturation: 1.2,
+    },
+  },
   navigation: [
     {
       type: "category",
