@@ -10,6 +10,7 @@ const config: ZudokuConfig = {
       alt: "Envlink",
       width: "130px",
     },
+    showPoweredBy: false,
   },
   search: {
     type: "pagefind",
@@ -21,6 +22,33 @@ const config: ZudokuConfig = {
       termSaturation: 1.2,
     },
   },
+  metadata: {
+    title: "Envlink Docs",
+    description: "Documentation for Envlink",
+    keywords: ["envlink", "documentation", "api"],
+    logo: "/logo-light.png",
+    creator: "Tamam Huda",
+    defaultTitle: "Envlink Docs",
+    favicon: "/favicon.ico",
+    publisher: "Tamam Huda",
+    authors: ["Tamam Huda"],
+    applicationName: "Envlink Docs",
+  },
+  port: 5000,
+  sitemap: {
+    siteUrl: "https://docs.envlink.com",
+    autoLastmod: true,
+    changefreq: "weekly",
+    priority: 0.8,
+  },
+  // syntaxHighlighting: {
+  //   languages: ["javascript", "typescript", "json", "yaml"],
+  //   themes: {
+  //     dark: "monokai",
+  //     light: "github-dark",
+  //   },
+  // },
+  canonicalUrlOrigin: "https://docs.envlink.com",
   navigation: [
     {
       type: "category",
@@ -55,6 +83,7 @@ const config: ZudokuConfig = {
             "/analytics",
             "/authentication",
             "/billing-address",
+            "/channels",
             "/health",
             "/oauth",
             "/payment-methods",

@@ -1,16 +1,37 @@
 ---
-title: Welcome to Zudoku
+title: Overview
+description: "A high-level overview of the Envlink API."
 ---
 
-Thanks for choosing to use Zudoku to power your API documentation!
+## API Overview
 
-## Edit this page
+The Envlink API is a comprehensive suite of endpoints designed to provide a full-featured URL shortening service. It is organized into several distinct APIs, each responsible for a specific set of functionalities. This modular approach allows for a clean separation of concerns and makes it easy to integrate with the services you need.
 
-To edit this page, open the `pages/introduction.mdx` file.
+### Core APIs
 
-## Configuration
+- **[Account API](pages/account.mdx)**: Manages user authentication, profile settings, and security.
+- **[Analytics API](pages/analytics.mdx)**: Provides detailed statistics and tracking for your shortened URLs.
+- **[Authentication API](pages/authentication.mdx)**: Handles user registration, login, and token management.
+- **[Channels API](pages/channels.mdx)**: Allows for the organization of URLs into channels.
+- **[URLs API](pages/urls.mdx)**: The core of the service, responsible for creating, retrieving, updating, and deleting short URLs.
+- **[User API](pages/user.mdx)**: Manages user profile information.
 
-You can find the full configuration for your Zudoku site in the `zudoku.config.tsx` file.
+### Billing & Subscriptions
 
-For further information on how to customize your site, check out the
-[Zudoku documentation](https://zudoku.dev/docs).
+- **[Billing Address API](pages/billing-address.mdx)**: Manages user billing addresses.
+- **[Payment Methods API](pages/payment-methods.mdx)**: Handles the creation, retrieval, and management of user payment methods.
+- **[Subscriptions API](pages/subscriptions.mdx)**: Manages user subscriptions, plans, and billing cycles.
+- **[Transactions API](pages/transactions.mdx)**: Provides a way to retrieve information about user transactions and billing history.
+
+### Public APIs
+
+- **[Public Payment Methods API](pages/public-payment-methods.mdx)**: Handles the creation and validation of payment methods for public users.
+- **[Public Subscriptions Plans API](pages/public-subscriptions-plans.mdx)**: Provides a way to retrieve information about available subscription plans.
+- **[Public URLs API](pages/public-urls.mdx)**: Allows for the creation and management of short URLs without authentication.
+
+### Utility APIs
+
+- **[Health API](pages/health.mdx)**: Provides a simple way to monitor the status of the application and its connected services.
+- **[OAuth API](pages/oauth.mdx)**: Handles user authentication via third-party providers like Google.
+- **[Sessions API](pages/sessions.mdx)**: Provides tools for managing user sessions and enhancing security.
+- **[Webhooks API](pages_webhooks.mdx)**: Handles incoming webhook notifications from third-party services like Xendit.

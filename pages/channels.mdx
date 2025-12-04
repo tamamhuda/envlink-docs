@@ -1,0 +1,49 @@
+---
+title: Channels API
+description: "Overview of the Channels API, which provides functionalities for managing channels and their items."
+---
+
+## Channels API Overview
+
+The Channels API is designed to provide a flexible way to manage channels and the items within them. It offers a comprehensive set of endpoints for creating, retrieving, updating, and deleting channels, as well as for managing the items associated with each channel. This API is ideal for applications that require content organization, such as categorizing URLs, managing product lists, or any other scenario where items need to be grouped and managed collectively.
+
+### Key Features
+
+- **Channel Management**: Create, retrieve, update, and delete channels to organize your content.
+- **Item Association**: Add and retrieve items within a channel, allowing for flexible content grouping.
+- **Pagination and Filtering**: Efficiently navigate through large sets of channels with pagination and filtering options.
+- **Starred Channels**: Mark important channels as "starred" for quick access.
+
+Below is a summary of the available endpoints and their functionalities. Each endpoint is designed to be easy to integrate and provides clear, consistent responses to help you build a powerful and organized content management system.
+
+---
+
+### Endpoints
+
+#### `GET /api/v1/channels`
+- **Description**: Retrieves a paginated list of channels.
+- **Usage**: This endpoint is perfect for displaying a list of channels, with support for filtering by starred status. It allows for efficient navigation through a large number of channels by using pagination.
+
+#### `POST /api/v1/channels`
+- **Description**: Creates a new channel.
+- **Usage**: Use this endpoint to create a new channel by providing a name and an optional description. This is the first step in organizing your content into logical groups.
+
+#### `GET /api/v1/channels/{id}`
+- **Description**: Retrieves a specific channel by its unique ID.
+- **Usage**: This is useful for viewing the details of a single channel, including its name, description, and other attributes.
+
+#### `PUT /api/v1/channels/{id}`
+- **Description**: Updates an existing channel.
+- **Usage**: This allows you to make changes to a channel's information, such as its name or description, without having to create a new one.
+
+#### `DELETE /api/v1/channels/{id}`
+- **Description**: Deletes a channel.
+- **Usage**: If a channel is no longer needed, you can use this endpoint to permanently delete it.
+
+#### `GET /api/v1/channels/{id}/items`
+- **Description**: Retrieves all items associated with a specific channel.
+- **Usage**: This endpoint is useful for displaying the content of a channel, such as a list of URLs or products.
+
+#### `POST /api/v1/channels/{id}/items/add`
+- **Description**: Adds one or more items to a channel.
+- **Usage**: Use this endpoint to associate existing items with a channel, making it easy to group and manage your content.

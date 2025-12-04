@@ -15,6 +15,7 @@ The following is a list of available API documentation. For full API documentati
 - **Authentication API**: Handle user registration, login, and token management. ([Details](pages/authentication.mdx))
 - **URLs API**: Create, retrieve, update, and delete short URLs. ([Details](pages/urls.mdx))
 - **User API**: Manage user profile information. ([Details](pages/user.mdx))
+- **Channels API**: Manage channels and their items. ([Details](pages/channels.mdx))
 
 ### Billing & Subscriptions
 

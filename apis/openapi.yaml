@@ -7,16 +7,16 @@ paths:
       responses:
         "204":
           description: Logout successful
-        4XX:
+        4XX: &a1
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a2
         - jwt-access: []
       summary: Logout user
-      tags:
+      tags: &a3
         - Account
   /api/v1/account/verify/resend:
     post:
@@ -35,17 +35,10 @@ paths:
             application/json:
               schema:
                 type: string
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a1
+      security: *a2
       summary: Resend verification email
-      tags:
-        - Account
+      tags: *a3
   /api/v1/account/change-password:
     post:
       operationId: Change-Password
@@ -64,18 +57,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a1
+      security: *a2
       summary: Change password
-      tags:
-        - Account
-  /api/v1/session/{id}:
+      tags: *a3
+  /api/v1/sessions/{id}:
     get:
       operationId: GetById
       parameters:
@@ -91,18 +77,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SessionInfoResponse"
-        4XX:
+        4XX: &a4
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a5
         - jwt-access: []
       summary: Get session by id
-      tags:
+      tags: &a6
         - Sessions
-  /api/v1/session:
+  /api/v1/sessions:
     get:
       operationId: GetAll
       parameters:
@@ -118,18 +104,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllSessionsInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a4
+      security: *a5
       summary: Get all user sessions
-      tags:
-        - Sessions
-  /api/v1/session/revoke/{id}:
+      tags: *a6
+  /api/v1/sessions/revoke/{id}:
     post:
       operationId: RevokeById
       parameters:
@@ -141,35 +120,28 @@ paths:
       responses:
         "204":
           description: No content
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a4
+      security: *a5
       summary: Revoke a user session
-      tags:
-        - Sessions
-  /api/v1/session/revoke:
+      tags: *a6
+  /api/v1/sessions/revoke:
     post:
       operationId: RevokeAll
-      parameters: []
+      parameters:
+        - name: keepCurrent
+          required: false
+          in: query
+          description: Keep current session
+          schema:
+            default: false
+            type: boolean
       responses:
         "204":
           description: No content
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a4
+      security: *a5
       summary: Revoke all user sessions
-      tags:
-        - Sessions
+      tags: *a6
   /api/v1/user/me:
     get:
       operationId: GetInfo
@@ -181,16 +153,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserInfoResponse"
-        4XX:
+        4XX: &a7
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a8
         - jwt-access: []
       summary: Get user information
-      tags:
+      tags: &a9
         - User
   /api/v1/user/{id}:
     patch:
@@ -215,17 +187,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a7
+      security: *a8
       summary: Update user information
-      tags:
-        - User
+      tags: *a9
   /api/v1/user/image/upload:
     post:
       operationId: UploadAvatar
@@ -247,17 +212,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a7
+      security: *a8
       summary: Upload user image
-      tags:
-        - User
+      tags: *a9
   /api/v1/auth/register:
     post:
       operationId: Register
@@ -282,14 +240,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AuthenticatedResponse"
-        4XX:
+        4XX: &a10
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       summary: Register a new account
-      tags:
+      tags: &a11
         - Authentication
   /api/v1/auth/login:
     post:
@@ -309,15 +267,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AuthenticatedResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a10
       summary: Login an account
-      tags:
-        - Authentication
+      tags: *a11
   /api/v1/auth/refresh:
     post:
       operationId: Refresh
@@ -329,17 +281,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TokensResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a10
       security:
         - jwt-refresh: []
       summary: Refresh token
-      tags:
-        - Authentication
+      tags: *a11
   /api/v1/auth/verify:
     get:
       operationId: Verify
@@ -356,15 +302,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a10
       summary: Verify email
-      tags:
-        - Authentication
+      tags: *a11
   /api/v1/health:
     get:
       operationId: Health-Check
@@ -382,8 +322,8 @@ paths:
                     example: ok
                   info:
                     type: object
-                    example:
-                      database:
+                    example: &a12
+                      database: &a13
                         status: up
                     additionalProperties:
                       type: object
@@ -408,9 +348,7 @@ paths:
                     nullable: true
                   details:
                     type: object
-                    example:
-                      database:
-                        status: up
+                    example: *a12
                     additionalProperties:
                       type: object
                       required:
@@ -431,9 +369,7 @@ paths:
                     example: error
                   info:
                     type: object
-                    example:
-                      database:
-                        status: up
+                    example: *a12
                     additionalProperties:
                       type: object
                       required:
@@ -446,7 +382,7 @@ paths:
                   error:
                     type: object
                     example:
-                      redis:
+                      redis: &a14
                         status: down
                         message: Could not connect
                     additionalProperties:
@@ -461,11 +397,8 @@ paths:
                   details:
                     type: object
                     example:
-                      database:
-                        status: up
-                      redis:
-                        status: down
-                        message: Could not connect
+                      database: *a13
+                      redis: *a14
                     additionalProperties:
                       type: object
                       required:
@@ -496,43 +429,76 @@ paths:
               $ref: "#/components/schemas/ShortenUrlRequest"
       responses:
         "201":
-          description: Created a new short URL
+          description: Created a new URL
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlResponse"
-        4XX:
+        4XX: &a15
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a16
         - jwt-access: []
-      summary: Create a new short URL
-      tags:
+      summary: Create a new URL
+      tags: &a17
         - Urls
     get:
       operationId: GetAll
-      parameters: []
+      parameters:
+        - name: archived
+          required: false
+          in: query
+          description: Filter by archived status
+          schema:
+            default: false
+            example: false
+            type: boolean
+        - name: expired
+          required: false
+          in: query
+          description: Filter by expired status
+          schema:
+            default: false
+            example: false
+            type: boolean
+        - name: privated
+          required: false
+          in: query
+          description: Filter by private status
+          schema:
+            default: false
+            example: false
+            type: boolean
+        - name: page
+          required: false
+          in: query
+          description: Page number
+          schema:
+            default: 1
+            example: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          description: Page size
+          schema:
+            default: 1
+            example: 10
+            type: number
       responses:
         "200":
-          description: Get all short URLs for a user successfully
+          description: Get all URLs paginated for a user successfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AllUrlsResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
-      summary: Get all short URLs for a user
-      tags:
-        - Urls
+                $ref: "#/components/schemas/UrlPaginatedResponse"
+        4XX: *a15
+      security: *a16
+      summary: Get all URLs paginated
+      tags: *a17
   /api/v1/urls/{id}:
     get:
       operationId: GetById
@@ -544,22 +510,15 @@ paths:
             type: string
       responses:
         "200":
-          description: Get a short URL by id successfully
+          description: Get a URL by id successfully
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
-      summary: Get a short URL by id
-      tags:
-        - Urls
+        4XX: *a15
+      security: *a16
+      summary: Get a URL by id
+      tags: *a17
     put:
       operationId: Update
       parameters:
@@ -577,24 +536,17 @@ paths:
               $ref: "#/components/schemas/UpdateUrlRequest"
       responses:
         "200":
-          description: Update a short URL
+          description: Update a URL
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
-      summary: Update a short URL
-      tags:
-        - Urls
+        4XX: *a15
+      security: *a16
+      summary: Update a URL
+      tags: *a17
     delete:
-      operationId: Delete
+      operationId: DeleteById
       parameters:
         - name: id
           required: true
@@ -603,18 +555,11 @@ paths:
             type: string
       responses:
         "204":
-          description: Delete a short URL successfully
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
-      summary: Delete a short URL
-      tags:
-        - Urls
+          description: Delete a URL successfully
+        4XX: *a15
+      security: *a16
+      summary: Delete a URL
+      tags: *a17
   /api/v1/public/urls/shorten:
     post:
       operationId: Shorten
@@ -632,14 +577,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PublicUrlResponse"
-        4XX:
+        4XX: &a18
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       summary: Shorten a URL for public access
-      tags:
+      tags: &a19
         - Public URLs
   /api/v1/public/urls/{code}:
     get:
@@ -657,15 +602,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PublicUrlResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a18
       summary: Get a short URL for public access
-      tags:
-        - Public URLs
+      tags: *a19
   /api/v1/public/urls/unlock/{code}:
     post:
       operationId: Unlock
@@ -689,15 +628,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PublicUrlResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a18
       summary: Unlock a short URL for public access
-      tags:
-        - Public URLs
+      tags: *a19
   /api/v1/subscriptions/active:
     get:
       operationId: GetActive
@@ -709,16 +642,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SubscriptionInfoResponse"
-        4XX:
+        4XX: &a20
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a21
         - jwt-access: []
       summary: Get current user active subscription
-      tags:
+      tags: &a22
         - Subscriptions
   /api/v1/subscriptions:
     get:
@@ -731,17 +664,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllSubscriptionInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a20
+      security: *a21
       summary: Get all subscriptions
-      tags:
-        - Subscriptions
+      tags: *a22
   /api/v1/subscriptions/{id}:
     get:
       operationId: GetById
@@ -758,17 +684,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SubscriptionInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a20
+      security: *a21
       summary: Get subscription by id
-      tags:
-        - Subscriptions
+      tags: *a22
   /api/v1/subscriptions/{id}/deactivate:
     post:
       operationId: Deactivate
@@ -785,17 +704,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SubscriptionInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a20
+      security: *a21
       summary: Deactivate subscription plan
-      tags:
-        - Subscriptions
+      tags: *a22
   /api/v1/subscriptions/{id}/upgrade:
     post:
       operationId: Upgrade
@@ -819,17 +731,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SubscriptionInfoResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a20
+      security: *a21
       summary: Upgrade subscription plan
-      tags:
-        - Subscriptions
+      tags: *a22
   /api/v1/subscriptions/{id}/upgrade-options:
     get:
       operationId: GetUpgradeOptions
@@ -846,17 +751,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SubscriptionUpgradeOptionsResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a20
+      security: *a21
       summary: Get subscription upgrade options
-      tags:
-        - Subscriptions
+      tags: *a22
   /api/v1/public/subscriptions/plans:
     get:
       operationId: GetAll
@@ -868,14 +766,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllPlansResponse"
-        4XX:
+        4XX: &a23
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       summary: Get all plan details
-      tags:
+      tags: &a24
         - Public Subscriptions Plans
   /api/v1/public/subscriptions/plans/{name}:
     get:
@@ -893,15 +791,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PlanResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a23
       summary: Get plan details by name
-      tags:
-        - Public Subscriptions Plans
+      tags: *a24
   /api/v1/subscriptions/active/cycles:
     get:
       operationId: getAllActiveSubscriptionCycles
@@ -913,16 +805,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllSubscriptionCyclesResponse"
-        4XX:
+        4XX: &a25
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a26
         - jwt-access: []
       summary: Get all active subscription cycles
-      tags:
+      tags: &a27
         - Subscriptions
   /api/v1/subscriptions/{id}/cycles:
     get:
@@ -940,17 +832,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllSubscriptionCyclesResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a25
+      security: *a26
       summary: Get all subscription cycles
-      tags:
-        - Subscriptions
+      tags: *a27
   /api/v1/subscriptions/{id}/cycles/{cycleId}:
     get:
       operationId: GetCycleById
@@ -972,17 +857,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SubscriptionCycleResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a25
+      security: *a26
       summary: Get subscription cycle by id
-      tags:
-        - Subscriptions
+      tags: *a27
   /api/v1/webhooks/xendit/payment_methods:
     post:
       operationId: WebhooksController_handleXenditPaymentMethods
@@ -1001,14 +879,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OkResponse"
-        4XX:
+        4XX: &a28
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       summary: Handle Xendit payment methods callback data
-      tags:
+      tags: &a29
         - Webhooks
   /api/v1/webhooks/xendit/recurring:
     post:
@@ -1028,15 +906,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OkResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a28
       summary: Handle Xendit recurring plan callback data
-      tags:
-        - Webhooks
+      tags: *a29
   /api/v1/payment-methods/requests-actions:
     get:
       operationId: RequestActions
@@ -1058,16 +930,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllPaymentMethodActionResponse"
-        4XX:
+        4XX: &a30
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a31
         - jwt-access: []
       summary: Get requested payment methods
-      tags:
+      tags: &a32
         - Payment Methods
   /api/v1/payment-methods/{id}:
     get:
@@ -1085,17 +957,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PaymentMethodResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
-      summary: Get payment method by id
-      tags:
-        - Payment Methods
+        4XX: *a30
+      security: *a31
+      summary: Get payment method by id or external id
+      tags: *a32
   /api/v1/payment-methods:
     get:
       operationId: GetAll
@@ -1107,17 +972,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllPaymentMethodsResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a30
+      security: *a31
       summary: Get all payment methods
-      tags:
-        - Payment Methods
+      tags: *a32
     post:
       operationId: Create
       parameters: []
@@ -1135,17 +993,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PaymentMethodActionResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a30
+      security: *a31
       summary: Create payment method
-      tags:
-        - Payment Methods
+      tags: *a32
   /api/v1/payment-methods/sort:
     patch:
       operationId: Sort
@@ -1164,17 +1015,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllPaymentMethodsResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a30
+      security: *a31
       summary: Sort payment methods
-      tags:
-        - Payment Methods
+      tags: *a32
   /api/v1/payment-methods/validate:
     post:
       operationId: Validate
@@ -1193,17 +1037,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OkResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a30
+      security: *a31
       summary: Validate payment method
-      tags:
-        - Payment Methods
+      tags: *a32
   /api/v1/public/payment-methods/add:
     get:
       operationId: Add
@@ -1226,14 +1063,14 @@ paths:
       responses:
         "200":
           description: ""
-        4XX:
+        4XX: &a33
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       summary: Add payment method
-      tags:
+      tags: &a34
         - "Public Payment Methods "
   /api/v1/public/payment-methods/validate:
     post:
@@ -1258,15 +1095,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OkResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a33
       summary: Validate payment method
-      tags:
-        - "Public Payment Methods "
+      tags: *a34
   /api/v1/public/payment-methods:
     post:
       operationId: Create
@@ -1290,15 +1121,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PaymentMethodActionResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a33
       summary: Create payment method
-      tags:
-        - "Public Payment Methods "
+      tags: *a34
   /api/v1/transactions:
     get:
       operationId: GetAll
@@ -1330,16 +1155,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TransactionsResponse"
-        4XX:
+        4XX: &a35
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a36
         - jwt-access: []
       summary: Get all transactions
-      tags:
+      tags: &a37
         - Transactions
   /api/v1/transactions/{id}:
     get:
@@ -1357,17 +1182,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TransactionsResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a35
+      security: *a36
       summary: Get transaction by id
-      tags:
-        - Transactions
+      tags: *a37
   /api/v1/analytics/urls/overview:
     get:
       operationId: getUrlsOverview
@@ -1379,32 +1197,48 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlAnalyticsOverviewResponse"
-        4XX:
+        4XX: &a38
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      summary: Overview of url analytics
-      tags:
+      summary: Get Overview of url analytics
+      tags: &a39
         - Analytics
+  /api/v1/analytics/urls/segments:
+    get:
+      operationId: getUrlsSegments
+      parameters: []
+      responses:
+        "200":
+          description: Get url analytics segments successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UrlAnalyticsSegmentsResponse"
+        4XX: *a38
+      summary: Get Segments of url analytics
+      tags: *a39
   /api/v1/analytics/urls/stats:
     get:
       operationId: getAllUrlStats
       parameters:
-        - name: limit
-          required: false
-          in: query
-          description: Page size
-          schema:
-            default: 10
-            type: number
         - name: page
           required: false
           in: query
           description: Page number
           schema:
             default: 1
+            example: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          description: Page size
+          schema:
+            default: 1
+            example: 10
             type: number
       responses:
         "200":
@@ -1413,15 +1247,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlAnalyticStatPaginatedResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a38
       summary: Get all analytics stats of urls
-      tags:
-        - Analytics
+      tags: *a39
   /api/v1/analytics/urls/timeline:
     get:
       operationId: getAllUrlTimeline
@@ -1433,32 +1261,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlAnalyticTimelineResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a38
       summary: Get all timeline of urls
-      tags:
-        - Analytics
+      tags: *a39
   /api/v1/analytics/urls/logs:
     get:
       operationId: getAllUrlLogs
       parameters:
-        - name: limit
-          required: false
-          in: query
-          description: Page size
-          schema:
-            default: 10
-            type: number
         - name: page
           required: false
           in: query
           description: Page number
           schema:
             default: 1
+            example: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          description: Page size
+          schema:
+            default: 1
+            example: 10
             type: number
       responses:
         "200":
@@ -1467,15 +1291,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlAnalyticLogPaginatedResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a38
       summary: Get all analytics logs of urls
-      tags:
-        - Analytics
+      tags: *a39
   /api/v1/analytics/urls/{urlId}/stats:
     get:
       operationId: getUrlStatsById
@@ -1492,15 +1310,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlAnalyticStatResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a38
       summary: Get analytics stats of url by id
-      tags:
-        - Analytics
+      tags: *a39
   /api/v1/analytics/urls/{urlId}/timeline:
     get:
       operationId: getUrlTimelineById
@@ -1517,15 +1329,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlAnalyticTimelineResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a38
       summary: Get url timeline by id
-      tags:
-        - Analytics
+      tags: *a39
   /api/v1/analytics/urls/{urlId}/logs:
     get:
       operationId: getUrlLogsById
@@ -1535,19 +1341,21 @@ paths:
           in: path
           schema:
             type: string
-        - name: limit
-          required: false
-          in: query
-          description: Page size
-          schema:
-            default: 10
-            type: number
         - name: page
           required: false
           in: query
           description: Page number
           schema:
             default: 1
+            example: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          description: Page size
+          schema:
+            default: 1
+            example: 10
             type: number
       responses:
         "200":
@@ -1556,15 +1364,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UrlAnalyticLogPaginatedResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+        4XX: *a38
       summary: Get all analytics logs of url by id
-      tags:
-        - Analytics
+      tags: *a39
   /api/v1/billing-address:
     get:
       operationId: getAll
@@ -1576,16 +1378,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllBillingAddressResponse"
-        4XX:
+        4XX: &a40
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      security:
+      security: &a41
         - jwt-access: []
       summary: Get all billing addresses
-      tags:
+      tags: &a42
         - Billing Address
     post:
       operationId: create
@@ -1604,17 +1406,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BillingAddressResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a40
+      security: *a41
       summary: Create a billing address
-      tags:
-        - Billing Address
+      tags: *a42
   /api/v1/billing-address/{id}:
     get:
       operationId: getById
@@ -1631,17 +1426,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BillingAddressResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a40
+      security: *a41
       summary: Get a billing address by id
-      tags:
-        - Billing Address
+      tags: *a42
     patch:
       operationId: update
       parameters:
@@ -1664,17 +1452,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BillingAddressResponse"
-        4XX:
-          description: API Error Response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      security:
-        - jwt-access: []
+        4XX: *a40
+      security: *a41
       summary: Update a billing address
-      tags:
-        - Billing Address
+      tags: *a42
   /api/v1/oauth/google/login:
     get:
       operationId: signInWithGoogle
@@ -1702,14 +1483,14 @@ paths:
                 $ref: "#/components/schemas/GoogleUrlResponse"
         "308":
           description: Redirects to the Google OAuth login page
-        4XX:
+        4XX: &a43
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       summary: Redirects to Google OAuth login page
-      tags:
+      tags: &a44
         - OAuth
   /api/v1/oauth/google/callback:
     get:
@@ -1727,15 +1508,30 @@ paths:
           content:
             application/json:
               example: https://example.com/callback?code=1234567890
-        4XX:
-          description: API Error Response
+        4XX: *a43
+      summary: Callback from Google OAuth login page
+      tags: *a44
+  /api/v1/oauth/google/credential:
+    post:
+      operationId: googleCredential
+      parameters: []
+      requestBody:
+        required: true
+        description: The request body for verifying a Google credential
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GoogleCredentialRequest"
+      responses:
+        "200":
+          description: Authenticated with google credential successfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-      summary: Callback from Google OAuth login page
-      tags:
-        - OAuth
+                $ref: "#/components/schemas/AuthenticatedResponse"
+        4XX: *a43
+      summary: Verifies a Google credential
+      tags: *a44
   /api/v1/oauth/exchange-code:
     post:
       operationId: exchangeCode
@@ -1756,41 +1552,193 @@ paths:
                 $ref: "#/components/schemas/AuthenticatedResponse"
         "308":
           description: Redirects to the provided redirect URL
-        4XX:
+        4XX: *a43
+      summary: Exchanges an OAuth code for tokens
+      tags: *a44
+  /api/v1/channels:
+    get:
+      operationId: getAll
+      parameters:
+        - name: starred
+          required: false
+          in: query
+          description: Get starred channels
+          schema:
+            default: false
+            type: boolean
+        - name: page
+          required: false
+          in: query
+          description: Page number
+          schema:
+            default: 1
+            example: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          description: Page size
+          schema:
+            default: 1
+            example: 10
+            type: number
+      responses:
+        "200":
+          description: Get paginated channels successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChannelPaginatedResponse"
+        4XX: &a45
           description: API Error Response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-      summary: Exchanges an OAuth code for tokens
-      tags:
-        - OAuth
+      security: &a46
+        - jwt-access: []
+      summary: Get paginated channels
+      tags: &a47
+        - Channels
+    post:
+      operationId: create
+      parameters: []
+      requestBody:
+        required: true
+        description: Request body for creating a new channel
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateChannelRequest"
+      responses:
+        "200":
+          description: Create a new channel successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChannelResponse"
+        4XX: *a45
+      security: *a46
+      summary: Create a new channel
+      tags: *a47
+  /api/v1/channels/{id}:
+    get:
+      operationId: getById
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Get channel by id successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChannelResponse"
+        4XX: *a45
+      security: *a46
+      summary: Get channel by id
+      tags: *a47
+    put:
+      operationId: update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: Request body for updating a channel
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateChannelRequest"
+      responses:
+        "200":
+          description: Update a channel successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChannelResponse"
+        4XX: *a45
+      security: *a46
+      summary: Update a channel
+      tags: *a47
+    delete:
+      operationId: delete
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+        4XX: *a45
+      security: *a46
+      summary: Delete a channel
+      tags: *a47
+  /api/v1/channels/{id}/items:
+    get:
+      operationId: getItems
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Get all items of a channel successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChannelItemsPaginatedResponse"
+        4XX: *a45
+      security: *a46
+      summary: Get all items of a channel
+      tags: *a47
+  /api/v1/channels/{id}/items/add:
+    post:
+      operationId: addItems
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: Request body for adding items to a channel
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddItemsRequest"
+      responses:
+        "200":
+          description: Add items to a channel successfully
+          content:
+            application/json:
+              schema:
+                type: string
+        4XX: *a45
+      security: *a46
+      summary: Add items to a channel
+      tags: *a47
 info:
-  title: Envlink
-  description: >-
-    Envlink provides a scalable and secure platform for creating, managing, and analyzing shortened URLs.
-    The API supports the full lifecycle of link operations, including creation, customization, resolution,
-    and analytics. It also includes comprehensive account, subscription, billing, and payment-management
-    capabilities to support SaaS workflows.
-
-
-    Key capabilities include:
-      - URL shortening with custom codes, expiration, protection options, and public access endpoints.
-      - Detailed analytics covering clicks, unique visitors, geographic insights, and time-based metrics.
-      - Full account and user management including profiles, sessions, authentication, OAuth, and billing addresses.
-      - Subscription management with plan retrieval, upgrades, downgrades, billing history, and usage limits.
-      - Secure handling of payment methods, transactions, and webhook event delivery.
-      - Public endpoints for URLs, subscription plans, and payment methods.
-
-    This API is designed for reliable integration into modern applications, offering consistent endpoints,
-    predictable behavior, and support for both authenticated and public workflows.
-
+  title: envlink
+  description: A fast and reliable URL shortening service built with NestJS,
+    enabling easy link generation, management, and usage tracking.
   version: v1.0
   contact: {}
 tags: []
 servers:
-  - url: https://local-nest.utadev.app
-    description: Development
+  - url: https://envlink.utadev.app
+    description: Staging Development
   - url: https://api.envlink.one
     description: Production
 components:
@@ -1822,6 +1770,7 @@ components:
             - {}
             - type: string
           default: Not Found Exception
+          x-nestjs_zod-empty-type: true
         path:
           type: string
         timestamp:
@@ -1931,7 +1880,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.656Z"
+          default: 2025-12-04T22:19:45.281Z
       required:
         - success
         - path
@@ -1970,6 +1919,21 @@ components:
             is_revoked:
               type: boolean
               default: false
+            is_current:
+              type: boolean
+              default: false
+            device_type:
+              type: string
+              maxLength: 32
+              nullable: true
+            os:
+              type: string
+              maxLength: 64
+              nullable: true
+            browser:
+              type: string
+              maxLength: 64
+              nullable: true
             revoked_at:
               type: string
               format: date-time
@@ -2053,13 +2017,16 @@ components:
             - updated_at
             - user_agent
             - ip_location
+            - device_type
+            - os
+            - browser
             - revoked_at
             - expires_at
             - user
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.772Z"
+          default: 2025-12-04T22:19:45.422Z
       required:
         - success
         - path
@@ -2100,6 +2067,21 @@ components:
               is_revoked:
                 type: boolean
                 default: false
+              is_current:
+                type: boolean
+                default: false
+              device_type:
+                type: string
+                maxLength: 32
+                nullable: true
+              os:
+                type: string
+                maxLength: 64
+                nullable: true
+              browser:
+                type: string
+                maxLength: 64
+                nullable: true
               revoked_at:
                 type: string
                 format: date-time
@@ -2183,13 +2165,16 @@ components:
               - updated_at
               - user_agent
               - ip_location
+              - device_type
+              - os
+              - browser
               - revoked_at
               - expires_at
               - user
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.772Z"
+          default: 2025-12-04T22:19:45.422Z
       required:
         - success
         - path
@@ -2342,7 +2327,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.840Z"
+          default: 2025-12-04T22:19:45.509Z
       required:
         - success
         - path
@@ -2383,7 +2368,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.840Z"
+          default: 2025-12-04T22:19:45.509Z
       required:
         - success
         - path
@@ -2391,21 +2376,47 @@ components:
     ShortenUrlRequest:
       type: object
       properties:
-        code:
+        alias:
           type: string
           maxLength: 64
         original_url:
           type: string
           format: uri
           minLength: 1
-        is_protected:
-          type: boolean
-          default: false
-        access_code:
+        description:
           type: string
+          nullable: true
+        active_at:
+          type: string
+          format: date-time
         expires_at:
           type: string
           format: date-time
+        access_code:
+          type: string
+          nullable: true
+        is_protected:
+          type: boolean
+          default: false
+        is_private:
+          type: boolean
+          default: false
+        redirect_type:
+          type: string
+          enum:
+            - DIRECT
+            - SPLASH
+          x-enumNames:
+            - DIRECT
+            - SPLASH
+          default: DIRECT
+        click_limit:
+          type: number
+          nullable: true
+        expiration_redirect:
+          type: string
+          format: uri
+          nullable: true
         channel_ids:
           type: array
           items:
@@ -2440,10 +2451,17 @@ components:
             code:
               type: string
               maxLength: 64
+            alias:
+              type: string
+              maxLength: 64
+              nullable: true
             original_url:
               type: string
               format: uri
               minLength: 1
+            description:
+              type: string
+              nullable: true
             is_anonymous:
               type: boolean
               default: true
@@ -2453,30 +2471,68 @@ components:
             access_code:
               type: string
               nullable: true
+            active_at:
+              type: string
+              format: date-time
+              nullable: true
             expires_at:
+              type: string
+              format: date-time
               nullable: true
             click_count:
               type: number
               minimum: 0
               exclusiveMinimum: false
               default: 0
+            unique_clicks:
+              type: number
+              minimum: 0
+              exclusiveMinimum: false
+              default: 0
+            is_private:
+              type: boolean
+              default: false
+            is_archived:
+              type: boolean
+              default: false
+            redirect_type:
+              type: string
+              enum:
+                - DIRECT
+                - SPLASH
+              x-enumNames:
+                - DIRECT
+                - SPLASH
+              default: DIRECT
+            expiration_redirect:
+              type: string
+              format: uri
+              nullable: true
+            click_limit:
+              type: number
+              nullable: true
             metadata:
               type: object
               properties:
                 title:
                   type: string
                   maxLength: 255
+                  nullable: true
                 description:
                   type: string
+                  nullable: true
                 image:
                   type: string
                   format: uri
+                  nullable: true
                 favicon:
                   type: string
                   format: uri
+                  nullable: true
                 site_name:
                   type: string
                   maxLength: 255
+                  nullable: true
               nullable: true
             channels:
               type: array
@@ -2496,26 +2552,22 @@ components:
                 required:
                   - id
                   - name
-                  - description
           required:
             - id
             - created_at
             - updated_at
             - code
             - original_url
-            - access_code
-            - expires_at
-            - metadata
             - channels
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.909Z"
+          default: 2025-12-04T22:19:45.819Z
       required:
         - success
         - path
         - data
-    AllUrlsResponse:
+    UrlPaginatedResponse:
       type: object
       properties:
         success:
@@ -2526,94 +2578,185 @@ components:
         path:
           type: string
         data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-                minLength: 1
-              created_at:
-                type: string
-                format: date-time
-              updated_at:
-                type: string
-                format: date-time
-              code:
-                type: string
-                maxLength: 64
-              original_url:
-                type: string
-                format: uri
-                minLength: 1
-              is_anonymous:
-                type: boolean
-                default: true
-              is_protected:
-                type: boolean
-                default: false
-              access_code:
-                type: string
-                nullable: true
-              expires_at:
-                nullable: true
-              click_count:
-                type: number
-                minimum: 0
-                exclusiveMinimum: false
-                default: 0
-              metadata:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
                 type: object
                 properties:
-                  title:
+                  id:
                     type: string
-                    maxLength: 255
+                    format: uuid
+                    minLength: 1
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                  code:
+                    type: string
+                    maxLength: 64
+                  alias:
+                    type: string
+                    maxLength: 64
+                    nullable: true
+                  original_url:
+                    type: string
+                    format: uri
+                    minLength: 1
                   description:
                     type: string
-                  image:
+                    nullable: true
+                  is_anonymous:
+                    type: boolean
+                    default: true
+                  is_protected:
+                    type: boolean
+                    default: false
+                  access_code:
+                    type: string
+                    nullable: true
+                  active_at:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  expires_at:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  click_count:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique_clicks:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  is_private:
+                    type: boolean
+                    default: false
+                  is_archived:
+                    type: boolean
+                    default: false
+                  redirect_type:
+                    type: string
+                    enum:
+                      - DIRECT
+                      - SPLASH
+                    x-enumNames:
+                      - DIRECT
+                      - SPLASH
+                    default: DIRECT
+                  expiration_redirect:
                     type: string
                     format: uri
-                  favicon:
-                    type: string
-                    format: uri
-                  site_name:
-                    type: string
-                    maxLength: 255
-                nullable: true
-              channels:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      format: uuid
-                      minLength: 1
-                    name:
-                      type: string
-                      minLength: 1
-                    description:
-                      type: string
-                      nullable: true
-                  required:
-                    - id
-                    - name
-                    - description
-            required:
-              - id
-              - created_at
-              - updated_at
-              - code
-              - original_url
-              - access_code
-              - expires_at
-              - metadata
-              - channels
+                    nullable: true
+                  click_limit:
+                    type: number
+                    nullable: true
+                  metadata:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        maxLength: 255
+                        nullable: true
+                      description:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        format: uri
+                        nullable: true
+                      favicon:
+                        type: string
+                        format: uri
+                        nullable: true
+                      site_name:
+                        type: string
+                        maxLength: 255
+                        nullable: true
+                    nullable: true
+                  channels:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        description:
+                          type: string
+                          nullable: true
+                      required:
+                        - id
+                        - name
+                required:
+                  - id
+                  - created_at
+                  - updated_at
+                  - code
+                  - original_url
+                  - channels
+            meta:
+              type: object
+              properties:
+                total_items:
+                  type: number
+                item_count:
+                  type: number
+                items_per_page:
+                  type: number
+                total_pages:
+                  type: number
+                current_page:
+                  type: number
+              required:
+                - total_items
+                - item_count
+                - items_per_page
+                - total_pages
+                - current_page
+            links:
+              type: object
+              properties:
+                first:
+                  type: string
+                  format: uri
+                  nullable: true
+                prev:
+                  type: string
+                  format: uri
+                  nullable: true
+                next:
+                  type: string
+                  format: uri
+                  nullable: true
+                last:
+                  type: string
+                  format: uri
+                  nullable: true
+              required:
+                - first
+                - prev
+                - next
+                - last
+          required:
+            - data
+            - meta
+            - links
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.909Z"
+          default: 2025-12-04T22:19:45.819Z
       required:
         - success
         - path
@@ -2624,10 +2767,17 @@ components:
         code:
           type: string
           maxLength: 64
+        alias:
+          type: string
+          maxLength: 64
+          nullable: true
         original_url:
           type: string
           format: uri
           minLength: 1
+        description:
+          type: string
+          nullable: true
         is_anonymous:
           type: boolean
           default: true
@@ -2637,7 +2787,40 @@ components:
         access_code:
           type: string
           nullable: true
+        active_at:
+          type: string
+          format: date-time
+          nullable: true
         expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        unique_clicks:
+          type: number
+          minimum: 0
+          exclusiveMinimum: false
+          default: 0
+        is_private:
+          type: boolean
+          default: false
+        is_archived:
+          type: boolean
+          default: false
+        redirect_type:
+          type: string
+          enum:
+            - DIRECT
+            - SPLASH
+          x-enumNames:
+            - DIRECT
+            - SPLASH
+          default: DIRECT
+        expiration_redirect:
+          type: string
+          format: uri
+          nullable: true
+        click_limit:
+          type: number
           nullable: true
         metadata:
           type: object
@@ -2645,37 +2828,28 @@ components:
             title:
               type: string
               maxLength: 255
+              nullable: true
             description:
               type: string
+              nullable: true
             image:
               type: string
               format: uri
+              nullable: true
             favicon:
               type: string
               format: uri
+              nullable: true
             site_name:
               type: string
               maxLength: 255
+              nullable: true
           nullable: true
-        channels:
+        channels_ids:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-                minLength: 1
-              name:
-                type: string
-                minLength: 1
-              description:
-                type: string
-                nullable: true
-            required:
-              - id
-              - name
-              - description
+            type: string
+            format: uuid
     PublicShortenUrlRequest:
       type: object
       properties:
@@ -2707,52 +2881,95 @@ components:
             code:
               type: string
               maxLength: 64
+            alias:
+              type: string
+              maxLength: 64
+              nullable: true
             original_url:
               type: string
               format: uri
               minLength: 1
+            description:
+              type: string
+              nullable: true
             is_anonymous:
               type: boolean
               default: true
             is_protected:
               type: boolean
               default: false
+            active_at:
+              type: string
+              format: date-time
+              nullable: true
             expires_at:
+              type: string
+              format: date-time
               nullable: true
             click_count:
               type: number
               minimum: 0
               exclusiveMinimum: false
               default: 0
+            unique_clicks:
+              type: number
+              minimum: 0
+              exclusiveMinimum: false
+              default: 0
+            is_private:
+              type: boolean
+              default: false
+            is_archived:
+              type: boolean
+              default: false
+            redirect_type:
+              type: string
+              enum:
+                - DIRECT
+                - SPLASH
+              x-enumNames:
+                - DIRECT
+                - SPLASH
+              default: DIRECT
+            expiration_redirect:
+              type: string
+              format: uri
+              nullable: true
+            click_limit:
+              type: number
+              nullable: true
             metadata:
               type: object
               properties:
                 title:
                   type: string
                   maxLength: 255
+                  nullable: true
                 description:
                   type: string
+                  nullable: true
                 image:
                   type: string
                   format: uri
+                  nullable: true
                 favicon:
                   type: string
                   format: uri
+                  nullable: true
                 site_name:
                   type: string
                   maxLength: 255
+                  nullable: true
               nullable: true
           required:
             - created_at
             - updated_at
             - code
             - original_url
-            - expires_at
-            - metadata
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.909Z"
+          default: 2025-12-04T22:19:45.819Z
       required:
         - success
         - path
@@ -2837,6 +3054,12 @@ components:
                   minItems: 1
                   items:
                     type: string
+                cta:
+                  type: string
+                  nullable: true
+                popular:
+                  type: boolean
+                  default: false
               required:
                 - name
                 - limit
@@ -2845,6 +3068,7 @@ components:
                 - description
                 - price
                 - features
+                - cta
             started_at:
               type: string
               format: date-time
@@ -2952,7 +3176,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.234Z"
+          default: 2025-12-04T22:19:46.322Z
       required:
         - success
         - path
@@ -3031,6 +3255,12 @@ components:
                     minItems: 1
                     items:
                       type: string
+                  cta:
+                    type: string
+                    nullable: true
+                  popular:
+                    type: boolean
+                    default: false
                 required:
                   - name
                   - limit
@@ -3039,6 +3269,7 @@ components:
                   - description
                   - price
                   - features
+                  - cta
               started_at:
                 type: string
                 format: date-time
@@ -3146,7 +3377,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.234Z"
+          default: 2025-12-04T22:19:46.322Z
       required:
         - success
         - path
@@ -3288,8 +3519,26 @@ components:
                 minItems: 1
                 items:
                   type: string
+              cta:
+                type: string
+                nullable: true
+              popular:
+                type: boolean
+                default: false
               upgradable:
                 type: boolean
+              current_plan:
+                type: string
+                enum:
+                  - Free
+                  - Pro
+                  - Starter
+                  - Enterprise
+                x-enumNames:
+                  - FREE
+                  - PRO
+                  - STARTER
+                  - ENTERPRISE
               options:
                 type: array
                 items:
@@ -3305,30 +3554,6 @@ components:
                         - FINISH_CURRENT_CYCLE
                     upgradable:
                       type: boolean
-                    current_plan:
-                      type: string
-                      enum:
-                        - Free
-                        - Pro
-                        - Starter
-                        - Enterprise
-                      x-enumNames:
-                        - FREE
-                        - PRO
-                        - STARTER
-                        - ENTERPRISE
-                    new_plan:
-                      type: string
-                      enum:
-                        - Free
-                        - Pro
-                        - Starter
-                        - Enterprise
-                      x-enumNames:
-                        - FREE
-                        - PRO
-                        - STARTER
-                        - ENTERPRISE
                     amount:
                       type: number
                       minimum: 0
@@ -3352,8 +3577,6 @@ components:
                   required:
                     - strategy
                     - upgradable
-                    - current_plan
-                    - new_plan
                     - amount
                     - discount
                     - remaining_days
@@ -3370,12 +3593,14 @@ components:
               - description
               - price
               - features
+              - cta
               - upgradable
+              - current_plan
               - options
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.235Z"
+          default: 2025-12-04T22:19:46.322Z
       required:
         - success
         - path
@@ -3432,6 +3657,12 @@ components:
                 minItems: 1
                 items:
                   type: string
+              cta:
+                type: string
+                nullable: true
+              popular:
+                type: boolean
+                default: false
             required:
               - name
               - limit
@@ -3440,10 +3671,11 @@ components:
               - description
               - price
               - features
+              - cta
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.234Z"
+          default: 2025-12-04T22:19:46.321Z
       required:
         - success
         - path
@@ -3498,6 +3730,12 @@ components:
               minItems: 1
               items:
                 type: string
+            cta:
+              type: string
+              nullable: true
+            popular:
+              type: boolean
+              default: false
           required:
             - name
             - limit
@@ -3506,10 +3744,11 @@ components:
             - description
             - price
             - features
+            - cta
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.234Z"
+          default: 2025-12-04T22:19:46.321Z
       required:
         - success
         - path
@@ -3602,7 +3841,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.237Z"
+          default: 2025-12-04T22:19:46.326Z
       required:
         - success
         - path
@@ -3695,7 +3934,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.237Z"
+          default: 2025-12-04T22:19:46.326Z
       required:
         - success
         - path
@@ -3703,7 +3942,9 @@ components:
     WebhookRequest:
       type: object
       properties:
-        string: {}
+        string:
+          type: ""
+          x-nestjs_zod-empty-type: true
       required:
         - string
     OkResponse:
@@ -3725,7 +3966,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:32.654Z"
+          default: 2025-12-04T22:19:45.279Z
       required:
         - success
         - path
@@ -3765,7 +4006,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.239Z"
+          default: 2025-12-04T22:19:46.330Z
       required:
         - success
         - path
@@ -3955,7 +4196,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.241Z"
+          default: 2025-12-04T22:19:46.335Z
       required:
         - success
         - path
@@ -4147,27 +4388,31 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.241Z"
+          default: 2025-12-04T22:19:46.335Z
       required:
         - success
         - path
         - data
     SortPaymentMethodsRequest:
-      type: array
-      items:
-        type: object
-        properties:
-          payment_method_id:
-            type: string
-            format: uuid
-            minLength: 1
-          rank:
-            type: number
-            minimum: 1
-            exclusiveMinimum: false
-        required:
-          - payment_method_id
-          - rank
+      type: object
+      properties:
+        root:
+          type: array
+          items:
+            type: object
+            properties:
+              payment_method_id:
+                type: string
+                format: uuid
+                minLength: 1
+              rank:
+                type: number
+                minimum: 1
+                exclusiveMinimum: false
+            required:
+              - payment_method_id
+              - rank
+          x-nestjs_zod-unwrap-root: true
     ValidatePaymentMethodRequest:
       type: object
       properties:
@@ -4298,7 +4543,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.239Z"
+          default: 2025-12-04T22:19:46.330Z
       required:
         - success
         - path
@@ -4436,7 +4681,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.244Z"
+          default: 2025-12-04T22:19:46.340Z
       required:
         - success
         - path
@@ -4469,13 +4714,13 @@ components:
               items:
                 type: object
                 properties:
-                  country:
+                  country_code:
                     type: string
                     minLength: 1
                   total_visits:
                     type: number
                 required:
-                  - country
+                  - country_code
                   - total_visits
               default: []
             top_urls:
@@ -4515,31 +4760,34 @@ components:
                           required:
                             - id
                             - name
-                            - description
                       metadata:
                         type: object
                         properties:
                           title:
                             type: string
                             maxLength: 255
+                            nullable: true
                           description:
                             type: string
+                            nullable: true
                           image:
                             type: string
                             format: uri
+                            nullable: true
                           favicon:
                             type: string
                             format: uri
+                            nullable: true
                           site_name:
                             type: string
                             maxLength: 255
+                            nullable: true
                         nullable: true
                     required:
                       - id
                       - code
                       - original_url
                       - channels
-                      - metadata
                   total_visit:
                     type: number
                     minimum: 0
@@ -4622,11 +4870,70 @@ components:
                           minimum: 0
                           exclusiveMinimum: false
                           default: 0
-                        country:
+                        country_code:
                           type: string
                       required:
-                        - country
+                        - country_code
                     nullable: true
+                    default: []
+                  referrer_visits:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        total:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        unique:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                    default: {}
+                  region_visits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        total:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        unique:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        region:
+                          type: string
+                      required:
+                        - region
+                    default: []
+                  city_visits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        total:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        unique:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        city:
+                          type: string
+                        country_code:
+                          type: string
+                      required:
+                        - city
+                        - country_code
                     default: []
                 required:
                   - url
@@ -4638,7 +4945,160 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.410Z"
+          default: 2025-12-04T22:19:46.347Z
+      required:
+        - success
+        - path
+        - data
+    UrlAnalyticsSegmentsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          type: number
+          default: 200
+        path:
+          type: string
+        data:
+          type: object
+          properties:
+            device_visits:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+              nullable: true
+            os_visits:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+              nullable: true
+            browser_visits:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+              nullable: true
+              default: {}
+            country_visits:
+              type: array
+              items:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  country_code:
+                    type: string
+                required:
+                  - country_code
+              nullable: true
+              default: []
+            referrer_visits:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+              default: {}
+            region_visits:
+              type: array
+              items:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  region:
+                    type: string
+                required:
+                  - region
+              default: []
+            city_visits:
+              type: array
+              items:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  city:
+                    type: string
+                  country_code:
+                    type: string
+                required:
+                  - city
+                  - country_code
+              default: []
+          required:
+            - device_visits
+            - os_visits
+        timestamp:
+          type: string
+          format: date-time
+          default: 2025-12-04T22:19:46.347Z
       required:
         - success
         - path
@@ -4693,31 +5153,34 @@ components:
                           required:
                             - id
                             - name
-                            - description
                       metadata:
                         type: object
                         properties:
                           title:
                             type: string
                             maxLength: 255
+                            nullable: true
                           description:
                             type: string
+                            nullable: true
                           image:
                             type: string
                             format: uri
+                            nullable: true
                           favicon:
                             type: string
                             format: uri
+                            nullable: true
                           site_name:
                             type: string
                             maxLength: 255
+                            nullable: true
                         nullable: true
                     required:
                       - id
                       - code
                       - original_url
                       - channels
-                      - metadata
                   total_visit:
                     type: number
                     minimum: 0
@@ -4800,11 +5263,70 @@ components:
                           minimum: 0
                           exclusiveMinimum: false
                           default: 0
-                        country:
+                        country_code:
                           type: string
                       required:
-                        - country
+                        - country_code
                     nullable: true
+                    default: []
+                  referrer_visits:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        total:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        unique:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                    default: {}
+                  region_visits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        total:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        unique:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        region:
+                          type: string
+                      required:
+                        - region
+                    default: []
+                  city_visits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        total:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        unique:
+                          type: number
+                          minimum: 0
+                          exclusiveMinimum: false
+                          default: 0
+                        city:
+                          type: string
+                        country_code:
+                          type: string
+                      required:
+                        - city
+                        - country_code
                     default: []
                 required:
                   - url
@@ -4862,7 +5384,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.410Z"
+          default: 2025-12-04T22:19:46.347Z
       required:
         - success
         - path
@@ -4900,7 +5422,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.410Z"
+          default: 2025-12-04T22:19:46.348Z
       required:
         - success
         - path
@@ -4948,7 +5470,7 @@ components:
                   city:
                     type: string
                     nullable: true
-                  country:
+                  country_code:
                     type: string
                     nullable: true
                   device_type:
@@ -4970,9 +5492,111 @@ components:
                     type: number
                     minimum: 0
                     exclusiveMinimum: false
-                  url_id:
-                    type: string
-                    format: uuid
+                  url:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        minLength: 1
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                      code:
+                        type: string
+                        maxLength: 64
+                      alias:
+                        type: string
+                        maxLength: 64
+                        nullable: true
+                      original_url:
+                        type: string
+                        format: uri
+                        minLength: 1
+                      description:
+                        type: string
+                        nullable: true
+                      is_anonymous:
+                        type: boolean
+                        default: true
+                      is_protected:
+                        type: boolean
+                        default: false
+                      access_code:
+                        type: string
+                        nullable: true
+                      active_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      expires_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      click_count:
+                        type: number
+                        minimum: 0
+                        exclusiveMinimum: false
+                        default: 0
+                      unique_clicks:
+                        type: number
+                        minimum: 0
+                        exclusiveMinimum: false
+                        default: 0
+                      is_private:
+                        type: boolean
+                        default: false
+                      is_archived:
+                        type: boolean
+                        default: false
+                      redirect_type:
+                        type: string
+                        enum:
+                          - DIRECT
+                          - SPLASH
+                        x-enumNames:
+                          - DIRECT
+                          - SPLASH
+                        default: DIRECT
+                      expiration_redirect:
+                        type: string
+                        format: uri
+                        nullable: true
+                      click_limit:
+                        type: number
+                        nullable: true
+                      metadata:
+                        type: object
+                        properties:
+                          title:
+                            type: string
+                            maxLength: 255
+                            nullable: true
+                          description:
+                            type: string
+                            nullable: true
+                          image:
+                            type: string
+                            format: uri
+                            nullable: true
+                          favicon:
+                            type: string
+                            format: uri
+                            nullable: true
+                          site_name:
+                            type: string
+                            maxLength: 255
+                            nullable: true
+                        nullable: true
+                    required:
+                      - id
+                      - created_at
+                      - updated_at
+                      - code
+                      - original_url
                   channels:
                     type: array
                     items:
@@ -4983,17 +5607,16 @@ components:
                   - updated_at
                   - ip_address
                   - user_agent
-                  - referrer
                   - region
                   - city
-                  - country
+                  - country_code
                   - device_type
                   - os
                   - language
                   - is_unique
                   - browser
                   - visitor_count
-                  - url_id
+                  - url
                   - channels
             meta:
               type: object
@@ -5045,7 +5668,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.409Z"
+          default: 2025-12-04T22:19:46.345Z
       required:
         - success
         - path
@@ -5095,31 +5718,34 @@ components:
                     required:
                       - id
                       - name
-                      - description
                 metadata:
                   type: object
                   properties:
                     title:
                       type: string
                       maxLength: 255
+                      nullable: true
                     description:
                       type: string
+                      nullable: true
                     image:
                       type: string
                       format: uri
+                      nullable: true
                     favicon:
                       type: string
                       format: uri
+                      nullable: true
                     site_name:
                       type: string
                       maxLength: 255
+                      nullable: true
                   nullable: true
               required:
                 - id
                 - code
                 - original_url
                 - channels
-                - metadata
             total_visit:
               type: number
               minimum: 0
@@ -5202,11 +5828,70 @@ components:
                     minimum: 0
                     exclusiveMinimum: false
                     default: 0
-                  country:
+                  country_code:
                     type: string
                 required:
-                  - country
+                  - country_code
               nullable: true
+              default: []
+            referrer_visits:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+              default: {}
+            region_visits:
+              type: array
+              items:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  region:
+                    type: string
+                required:
+                  - region
+              default: []
+            city_visits:
+              type: array
+              items:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  city:
+                    type: string
+                  country_code:
+                    type: string
+                required:
+                  - city
+                  - country_code
               default: []
           required:
             - url
@@ -5217,7 +5902,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.410Z"
+          default: 2025-12-04T22:19:46.347Z
       required:
         - success
         - path
@@ -5312,7 +5997,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.412Z"
+          default: 2025-12-04T22:19:46.351Z
       required:
         - success
         - path
@@ -5405,7 +6090,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.412Z"
+          default: 2025-12-04T22:19:46.351Z
       required:
         - success
         - path
@@ -5536,11 +6221,18 @@ components:
         timestamp:
           type: string
           format: date-time
-          default: "2025-11-22T09:41:33.414Z"
+          default: 2025-12-04T22:19:46.364Z
       required:
         - success
         - path
         - data
+    GoogleCredentialRequest:
+      type: object
+      properties:
+        credential:
+          type: string
+      required:
+        - credential
     ExchangeCodeRequest:
       type: object
       properties:
@@ -5548,3 +6240,401 @@ components:
           type: string
       required:
         - code
+    ChannelPaginatedResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          type: number
+          default: 200
+        path:
+          type: string
+        data:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    minLength: 1
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                  name:
+                    type: string
+                    minLength: 1
+                  description:
+                    type: string
+                    nullable: true
+                  badge_icon:
+                    type: string
+                    nullable: true
+                  badge_color:
+                    type: string
+                    nullable: true
+                  is_starred:
+                    type: boolean
+                    default: false
+                required:
+                  - id
+                  - created_at
+                  - updated_at
+                  - name
+            meta:
+              type: object
+              properties:
+                total_items:
+                  type: number
+                item_count:
+                  type: number
+                items_per_page:
+                  type: number
+                total_pages:
+                  type: number
+                current_page:
+                  type: number
+              required:
+                - total_items
+                - item_count
+                - items_per_page
+                - total_pages
+                - current_page
+            links:
+              type: object
+              properties:
+                first:
+                  type: string
+                  format: uri
+                  nullable: true
+                prev:
+                  type: string
+                  format: uri
+                  nullable: true
+                next:
+                  type: string
+                  format: uri
+                  nullable: true
+                last:
+                  type: string
+                  format: uri
+                  nullable: true
+              required:
+                - first
+                - prev
+                - next
+                - last
+          required:
+            - data
+            - meta
+            - links
+        timestamp:
+          type: string
+          format: date-time
+          default: 2025-12-04T22:19:45.818Z
+      required:
+        - success
+        - path
+        - data
+    ChannelResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          type: number
+          default: 200
+        path:
+          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              minLength: 1
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            name:
+              type: string
+              minLength: 1
+            description:
+              type: string
+              nullable: true
+            badge_icon:
+              type: string
+              nullable: true
+            badge_color:
+              type: string
+              nullable: true
+            is_starred:
+              type: boolean
+              default: false
+          required:
+            - id
+            - created_at
+            - updated_at
+            - name
+        timestamp:
+          type: string
+          format: date-time
+          default: 2025-12-04T22:19:45.818Z
+      required:
+        - success
+        - path
+        - data
+    ChannelItemsPaginatedResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          type: number
+          default: 200
+        path:
+          type: string
+        data:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    minLength: 1
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                  code:
+                    type: string
+                    maxLength: 64
+                  alias:
+                    type: string
+                    maxLength: 64
+                    nullable: true
+                  original_url:
+                    type: string
+                    format: uri
+                    minLength: 1
+                  description:
+                    type: string
+                    nullable: true
+                  is_anonymous:
+                    type: boolean
+                    default: true
+                  is_protected:
+                    type: boolean
+                    default: false
+                  access_code:
+                    type: string
+                    nullable: true
+                  active_at:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  expires_at:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  click_count:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  unique_clicks:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: false
+                    default: 0
+                  is_private:
+                    type: boolean
+                    default: false
+                  is_archived:
+                    type: boolean
+                    default: false
+                  redirect_type:
+                    type: string
+                    enum:
+                      - DIRECT
+                      - SPLASH
+                    x-enumNames:
+                      - DIRECT
+                      - SPLASH
+                    default: DIRECT
+                  expiration_redirect:
+                    type: string
+                    format: uri
+                    nullable: true
+                  click_limit:
+                    type: number
+                    nullable: true
+                  metadata:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        maxLength: 255
+                        nullable: true
+                      description:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        format: uri
+                        nullable: true
+                      favicon:
+                        type: string
+                        format: uri
+                        nullable: true
+                      site_name:
+                        type: string
+                        maxLength: 255
+                        nullable: true
+                    nullable: true
+                  channels:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        description:
+                          type: string
+                          nullable: true
+                      required:
+                        - id
+                        - name
+                required:
+                  - id
+                  - created_at
+                  - updated_at
+                  - code
+                  - original_url
+                  - channels
+            meta:
+              type: object
+              properties:
+                total_items:
+                  type: number
+                item_count:
+                  type: number
+                items_per_page:
+                  type: number
+                total_pages:
+                  type: number
+                current_page:
+                  type: number
+              required:
+                - total_items
+                - item_count
+                - items_per_page
+                - total_pages
+                - current_page
+            links:
+              type: object
+              properties:
+                first:
+                  type: string
+                  format: uri
+                  nullable: true
+                prev:
+                  type: string
+                  format: uri
+                  nullable: true
+                next:
+                  type: string
+                  format: uri
+                  nullable: true
+                last:
+                  type: string
+                  format: uri
+                  nullable: true
+              required:
+                - first
+                - prev
+                - next
+                - last
+          required:
+            - data
+            - meta
+            - links
+        timestamp:
+          type: string
+          format: date-time
+          default: 2025-12-04T22:19:46.380Z
+      required:
+        - success
+        - path
+        - data
+    AddItemsRequest:
+      type: object
+      properties:
+        itemsIds:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+            format: uuid
+      required:
+        - itemsIds
+    CreateChannelRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          nullable: true
+        badge_icon:
+          type: string
+          nullable: true
+        badge_color:
+          type: string
+          nullable: true
+        is_starred:
+          type: boolean
+          default: false
+      required:
+        - name
+    UpdateChannelRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          nullable: true
+        badge_icon:
+          type: string
+          nullable: true
+        badge_color:
+          type: string
+          nullable: true
+        is_starred:
+          type: boolean
+          default: false
