@@ -5,7 +5,7 @@ description: "Introduction to the Envlink SaaS URL Shortener API and its documen
 
 ## Overview
 
-Frontend-only demo guide for EnvLink at https://envlink.one. This document focuses solely on UI flows, user interactions, and how to simulate subscription and authentication steps without backend involvement.
+Frontend-only demo guide for EnvLink at https://demo.envlink.one. This document focuses solely on UI flows, user interactions, and how to simulate subscription and authentication steps without backend involvement.
 
 ## Objectives
 
@@ -21,7 +21,7 @@ Frontend-only demo guide for EnvLink at https://envlink.one. This document focus
 
 ## Demo URL
 
-Access the demo at https://envlink.one.
+Access the demo at https://demo.envlink.one.
 
 ## Authentication Guide
 
@@ -61,6 +61,6 @@ High-level architecture diagram description.
 - **Frontend**: Nuxt
 - **Backend**: NestJS
 - **SDK**: OpenAPI-generated client
-- **Workers/queues**: TBD
+- **Workers/queues**: BullMQ with Redis as the broker
 - **Database**: PostgreSQL
-- **Cloud**: TBD
+- **Cloud**: Cloudflare
